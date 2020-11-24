@@ -1,19 +1,3 @@
-!cpu 6510
-!initmem $00
-
-!src "6502/std.a"
-!src "cbm/kernal128.asm"
-!src "cbm/zeropage128.asm"
-
-!macro Print .t {
-        lda #<.t
-        sta strsrc
-        lda #>.t
-        sta strsrc+1
-        jsr print
-}
-
-
 tmpval=$fa
 strsrc=$fb
 strdst=$fd
@@ -23,41 +7,21 @@ stepsize=1
 extra_display=$40
 
 !ifdef c128 {
-*= $1c01
 
-!to "eoftest128.prg", cbm
-
-scratchpad=$0b00
 savebase=$1000
 loadbank=1
-cmdfn=1
 maxpages=$a0
 
-!byte <.end,>.end,$01,$00,$9e               ; Line 1 SYS7182
-!convtab pet
-!tx "7182"                                  ; Address for sys start in text
-!byte $00,$00,$00
-*=$1c0d
-
 } else {
-*=$0801
 
-!to "eoftest64.prg", cbm
-
-scratchpad=$0334
 savebase=$1000
-cmdfn=2
 maxpages=$c0
 
-!byte <.end,>.end,$01,$00,$9e               ; Line 1 SYS2062
-!convtab pet
-!tx "2062"                                  ; Address for sys start in text
-!byte $00,$00,$00
-
-*=$080d
 }
+
+
 devid
-        !byte 12
+        !byte 12   ; first byte after basic start line.. the device ID.. should move.
 code_start
         sei
         lda #$ff   ; enable kernal messages
@@ -70,7 +34,7 @@ code_start
 
 test_loop
         lda #0
-;        sta $d020
+        sta $d020
         lda #0
         sta $d021
         jsr do_save_file
@@ -87,17 +51,7 @@ test_loop
         sta file_len+1
         cmp #maxpages
         bcc test_loop
-;        bne test_loop
-     
-;        inc file_len
-;        bne test_loop
-;        inc file_len+1
-;        lda file_len+1
-;        cmp #$80
-;        bne test_loop
-;        lda file_len
-;        cmp #10
-;        bne test_loop
+
 loop_end
         cli
         rts
@@ -193,8 +147,6 @@ do_save_file
         bne +
         dey
 +
-;        lda #loadbank
-;        sta ba
         lda #kworkptr1
       
         jsr SAVE
@@ -245,9 +197,9 @@ do_test_read
         jmp .ropen_error
 +
         jsr GETIN      ; read and throw away load address
-        inc bytes_read
+        inc bytes_read ; but count it...
         jsr GETIN      ; read and throw away load address
-        inc bytes_read
+        inc bytes_read ; but count it...
         jmp .check_eof
 .restart_read
         ldx #1
@@ -494,9 +446,6 @@ do_test_read
 !byte 8,5,14
 !tx "testing length: "
 !byte 0
-
-!src "std/print.asm"
-!src "std/string.asm"
 
 .flags
 !byte 0

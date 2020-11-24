@@ -6,4 +6,7 @@ Inspired by testing new storage additions to the UII+ and U64 hardware.
 
 Everything using acme syntax.
 
+acme test64.asm
+acme test128.asm
 
+That should do it for now
