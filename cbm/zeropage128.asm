@@ -48,6 +48,7 @@ kaddrptr2     = $c3                  ; holds load address (used when secondary a
 ba            = $c6                  ; bank for load/save
 fnbank        = $c7                  ; bank for current filename
 ndx           = $d0                  ; index into keyboard buffer
+curkey        = $d4
 scrwidth      = $ee                  ; current screen width
 uval1         = $fa                  ; free (user temp val 1)
 uptr1         = $fb                  ; user pointer 1

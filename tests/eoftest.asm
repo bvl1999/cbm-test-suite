@@ -1,6 +1,3 @@
-tmpval=$fa
-strsrc=$fb
-strdst=$fd
 fnlen=7
 startsize=200
 stepsize=1
@@ -8,9 +5,9 @@ extra_display=$40
 
 !ifdef c128 {
 
-savebase=$1000
+savebase=$0400
 loadbank=1
-maxpages=$a0
+maxpages=$fa
 
 } else {
 
@@ -19,10 +16,8 @@ maxpages=$c0
 
 }
 
-
-devid
-        !byte 12   ; first byte after basic start line.. the device ID.. should move.
-code_start
+file_size_test
+!zone file_size_test {
         sei
         lda #$ff   ; enable kernal messages
         sta $9d
@@ -53,6 +48,8 @@ test_loop
         bcc test_loop
 
 loop_end
+        lda #2
+        sta pause
         cli
         rts
 
@@ -449,6 +446,10 @@ do_test_read
 
 .flags
 !byte 0
+
+}
+
+
 file_len
 !word $0001
 bytes_read
