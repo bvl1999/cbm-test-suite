@@ -7,8 +7,10 @@ min_dev=8
 
 !ifdef c128 {
     nokey = 88
+    fgcol = $91
 } else {
     nokey = 64
+    fgcol = $0286
 }
 
 pause
@@ -45,6 +47,15 @@ main_menu
     lda curkey
     cmp #nokey
     beq .waitkey
+    cmp #40
+    bne +
+    jsr .inc_devid
+    jmp .scankeys
++   cmp #43
+    bne +
+    jsr .dec_devid
+    jmp .scankeys
++
     ldx #0
 .checkkey
     cmp .keytab,x                   ; regular number keys
@@ -70,8 +81,7 @@ main_menu
     bne .option_1
     lda #0
     sta ndx
-
-    rts
+    jmp do_exit
 
 .option_1
     cmp #1
@@ -88,6 +98,7 @@ main_menu
     jmp main_menu
 
 .option_3
+!if 0 {
     cmp #3
     bne .option_4
     jsr .inc_devid
@@ -95,6 +106,7 @@ main_menu
 
 .option_4
     jsr .dec_devid
+}
     jmp main_menu
 
 .inc_devid
@@ -103,6 +115,8 @@ main_menu
     cpx #max_dev+1
     beq +
     stx devid
+    clc
+    jsr .print_devid
 +   rts
 
 .dec_devid
@@ -111,30 +125,54 @@ main_menu
     cpx #min_dev-1
     beq +
     stx devid
-+   rts
+    clc
+    jsr .print_devid
++   
+    rts
 
 .print_devid
     bcc .print_devid_at
     jsr PLOT
     stx devid_xpos
+    txa
+    pha
     sty devid_ypos
+    tya
+    pha
     jmp .print_devid_doit
 
 .print_devid_at
+    sec
+    jsr PLOT
+    txa
+    pha
+    tya
+    pha
+    clc
     ldx devid_xpos
     ldy devid_ypos
     jsr PLOT
 
 .print_devid_doit
+    lda #$9e
+    jsr CHROUT
     lda devid
     cmp #10
-    bcc +
+    bcs +
     tay
     lda #' '
     jsr CHROUT
     tya
 +
     jsr printint
+    pla
+    tay
+    pla
+    tax
+    clc
+    jsr PLOT
+    lda #$05
+    jsr CHROUT
     rts
 
 .keytab
@@ -151,7 +189,7 @@ main_menu
 !byte $0d,05,$0d
 !tx "By Bart van Leeuwen in 2020"
 !byte $0d,$9b,$0d ; grey
-!tx "device id: "
+!tx "device id (+/- to change): "
 !byte $9e, 0 ; yellow
 
 .menutext
@@ -159,10 +197,10 @@ main_menu
 !byte $0d,$0d
 !tx "2. test read files with increasing size"
 !byte $0d,$0d
-!tx "3. increase device id"
-!byte $0d,$0d
-!tx "4. decrease device id"
-!byte $0d,$0d
+;!tx "3. increase device id"
+;!byte $0d,$0d
+;!tx "4. decrease device id"
+;!byte $0d,$0d
 !tx "0. quit"
 !byte $0d,$0d
 !byte $05

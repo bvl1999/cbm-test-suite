@@ -19,6 +19,8 @@ maxpages=$c0
 file_size_test
 !zone file_size_test {
         sei
+        lda #147
+        jsr CHROUT
         lda #$ff   ; enable kernal messages
         sta $9d
 
@@ -50,6 +52,7 @@ test_loop
 loop_end
         lda #2
         sta pause
+        +Print .finished_msg
         cli
         rts
 
@@ -292,7 +295,7 @@ do_test_read
         lda bytes_read+1
         cmp file_len+1
         bne .fl_error
-        +Print .finished_msg
+;        +Print .finished_msg
         cli
         clc
         rts
