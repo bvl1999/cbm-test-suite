@@ -7,15 +7,18 @@ Inspired by testing new storage additions to the UII+ and U64 hardware.
 RUNNING THIS ON ANY PHYSICAL STORAGE MEDIUM MAY CAUSE SERIOUS WEAR TO THE MEDIUM AND DRIVE
 
 This is a set of stress tests intended to test filesystem allocation/deallocation, correct
-file size hehavior for any file size between 200 bytes and the largest which can reasonably
-be loaded by your machine minus a bit of space used by the software itself (a bit less than 46k
-on a c64, 62.5k on a c128). This also serves to stress test the firmware of the drive for
+file size hehavior and contents.  This also serves to stress test the firmware of the drive for
 memory leaks or other behavior under heavy use.
+
+- create/delete test (small file) to test repeated alloc/de-alloc
+
+- create files with sizes between 200 bytes and a machine dependent maximum (about 46k on C64
+  and 63k on a C128)
 
 Don't use this on usb sticks or floppies or even floppy drives that might not like getting
 tens to hundreds of thousands of file creation, write and delete actions.
 
-
+The tests can easily be extended and/or modified.
 
 Everything using acme syntax.
 
