@@ -1,11 +1,8 @@
-loopcount
-        !word 0
+file_create_test_seq
 
-file_create_test
-
-!zone file_create_test {
+!zone file_create_test_seq {
         sei
-        lda #$00   ; disable kernal messages
+        lda #$ff   ; enable kernal messages
         sta $9d
         lda #0
         sta loopcount
@@ -63,7 +60,7 @@ file_create_test
         jsr SETLFS
         jsr OPEN
         bcc ++
-        jmp .ropen_error
+        jmp .open_error
 +
         ldx #$0f
         jsr CHKIN 
@@ -87,7 +84,7 @@ file_create_test
         jsr SETBNK
 }
 
-        lda #3
+        lda #7
         ldx #<.testfile
         ldy #>.testfile
         jsr SETNAM
@@ -95,18 +92,26 @@ file_create_test
         ldx devid
         ldy #2
         jsr SETLFS
+        jsr OPEN
+        bcc +
+        jmp .open_error
++
+;        +Print .writing_msg
+        ldx #1
+        jsr CHKOUT
         lda #<savebase
         sta kworkptr1
-        tax
         lda #>savebase
         sta kworkptr1+1
-        adc #$01
-        tay
-        lda #kworkptr1
-        jsr SAVE
-        bcc +
-        jmp .save_error
-+
+        ldy #0
+-
+        lda (kworkptr1),y
+        jsr CHROUT
+        iny
+        bne -
+        jsr CLRCHN
+        lda #1
+        jsr CLOSE
         lda #$0d
         jsr CHROUT
         rts
@@ -122,21 +127,9 @@ file_create_test
         sec
         jmp printint16
 
-.ropen_error
+.open_error
         pha
-        +Print .ropen_error_msg
-        pla
-        jsr printint
-        lda #$0d
-        jsr CHROUT
-        lda #2
-        sta pause
-        sec
-        rts
-
-.save_error
-        pha
-        +Print .save_error_msg
+        +Print .open_error_msg
         pla
         jsr printint
         lda #$0d
@@ -148,12 +141,11 @@ file_create_test
 
 .count_msg
 !byte 147
-!tx "completed create/deletes: "
+!tx "completed create/write/deletes: "
 !byte 0
 
-.save_error_msg
-!byte 150
-!tx "save error: "
+.writing_msg
+!tx "writing file..."
 !byte 0
 
 .finished_msg
@@ -161,14 +153,14 @@ file_create_test
 !tx "finished!"
 !byte $0d,0
 
-.ropen_error_msg
+.open_error_msg
 !byte 150
 !tx "error opening file: "
 !byte 0
 .scratchfile
 !tx "s:"
 .testfile
-!tx "ctx,r,p"
+!tx "ctx,w,p"
 !byte 0,0,0,0
 
 }

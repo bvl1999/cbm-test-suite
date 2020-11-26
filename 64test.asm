@@ -9,7 +9,7 @@ workptr = strpooltmpptr                    ; needed by string/print libraries
 
 scratchpad=$0334                            ; for string/print libraries
 
-!byte <.end,>.end,$01,$00,$9e               ; Line 1 SYS2062
+!byte <end,>end,$01,$00,$9e               ; Line 1 SYS2062
 !convtab pet
 !tx "2062"                                  ; Address for sys start in text
 !byte $00,$00,$00
@@ -17,4 +17,4 @@ scratchpad=$0334                            ; for string/print libraries
 *=$080d
 
 !src "shared.asm"
-
+end

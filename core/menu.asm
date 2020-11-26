@@ -98,15 +98,20 @@ main_menu
     jmp main_menu
 
 .option_3
-!if 0 {
     cmp #3
     bne .option_4
-    jsr .inc_devid
+    jsr file_create_test_seq
+    jsr check_pause
     jmp main_menu
 
 .option_4
-    jsr .dec_devid
-}
+    cmp #4
+    bne .endkeyscan
+    jsr file_scratch_test
+    jsr check_pause
+    jmp main_menu
+
+.endkeyscan
     jmp main_menu
 
 .inc_devid
@@ -197,10 +202,10 @@ main_menu
 !byte $0d,$0d
 !tx "2. test read files with increasing size"
 !byte $0d,$0d
-;!tx "3. increase device id"
-;!byte $0d,$0d
-;!tx "4. decrease device id"
-;!byte $0d,$0d
+!tx "3. file create/seq-write/delete test"
+!byte $0d,$0d
+!tx "4. repeated (pointless) scratch test"
+!byte $0d,$0d
 !tx "0. quit"
 !byte $0d,$0d
 !byte $05

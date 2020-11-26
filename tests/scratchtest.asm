@@ -1,9 +1,7 @@
-loopcount
-        !word 0
 
-file_create_test
+file_scratch_test
 
-!zone file_create_test {
+!zone file_scratch_test {
         sei
         lda #$00   ; disable kernal messages
         sta $9d
@@ -35,7 +33,7 @@ file_create_test
         bne .test_loop
 
 .loop_end
-        lda #1
+        lda #2
         sta pause
         cli
         rts
@@ -80,37 +78,7 @@ file_create_test
         tax
         tay
         jsr CLOSE
-
-!ifdef c128 {
-        lda #loadbank
-        ldx #0
-        jsr SETBNK
-}
-
-        lda #3
-        ldx #<.testfile
-        ldy #>.testfile
-        jsr SETNAM
-        lda #1
-        ldx devid
-        ldy #2
-        jsr SETLFS
-        lda #<savebase
-        sta kworkptr1
-        tax
-        lda #>savebase
-        sta kworkptr1+1
-        adc #$01
-        tay
-        lda #kworkptr1
-        jsr SAVE
-        bcc +
-        jmp .save_error
-+
-        lda #$0d
-        jsr CHROUT
         rts
-
 
 .print_count
         ldx xpos
@@ -134,21 +102,9 @@ file_create_test
         sec
         rts
 
-.save_error
-        pha
-        +Print .save_error_msg
-        pla
-        jsr printint
-        lda #$0d
-        jsr CHROUT
-        lda #2
-        sta pause
-        sec
-        rts
-
 .count_msg
 !byte 147
-!tx "completed create/deletes: "
+!tx "completed deletes: "
 !byte 0
 
 .save_error_msg

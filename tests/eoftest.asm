@@ -11,8 +11,8 @@ maxpages=$fa
 
 } else {
 
-savebase=$1000
-maxpages=$c0
+savebase=$1400
+maxpages=$bb
 
 }
 
@@ -89,8 +89,8 @@ do_save_file
 }
 
         lda #$05
-        ldx #<scratchfile
-        ldy #>scratchfile
+        ldx #<.scratchfile
+        ldy #>.scratchfile
         jsr SETNAM
         lda #$0f
         ldx devid
@@ -122,8 +122,8 @@ do_save_file
 }
 
         lda #3
-        ldx #<testfile
-        ldy #>testfile
+        ldx #<.testfile
+        ldy #>.testfile
         jsr SETNAM
         lda #1
         ldx devid
@@ -180,8 +180,8 @@ do_test_read
         jsr SETBNK
 }
         lda #7
-        ldx #<testfile
-        ldy #>testfile
+        ldx #<.testfile
+        ldy #>.testfile
         jsr SETNAM
         lda #1
         ldx devid
@@ -450,16 +450,15 @@ do_test_read
 .flags
 !byte 0
 
-}
 
 
 file_len
 !word $0001
 bytes_read
 !word 0
-scratchfile
+.scratchfile
 !tx "s:"
-testfile
+.testfile
 !tx "ctx,r,p"
 !byte 0,0,0,0
 xpos
@@ -470,4 +469,4 @@ extra
 !byte $40
 readv
 !byte 0
-.end
+}
