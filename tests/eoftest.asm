@@ -3,19 +3,6 @@ startsize=200
 stepsize=1
 extra_display=$40
 
-!ifdef c128 {
-
-savebase=$0400
-loadbank=1
-maxpages=$fa
-
-} else {
-
-savebase=end+1
-maxpages=$bb
-
-}
-
 file_size_test
 !zone file_size_test {
         sei
@@ -46,7 +33,12 @@ test_loop
         lda file_len+1
         adc #>stepsize
         sta file_len+1
-        cmp #maxpages
+        lda file_len
+        clc
+        adc #<savebase
+        lda file_len+1
+        adc #>savebase
+        cmp #maxpage
         bcc test_loop
 
 loop_end
@@ -196,6 +188,7 @@ do_test_read
         bcc +
         jmp .ropen_error
 +
+        jsr .print_count
         jsr GETIN      ; read and throw away load address
         inc bytes_read ; but count it...
         jsr GETIN      ; read and throw away load address
@@ -211,7 +204,7 @@ do_test_read
 .read_next
         jsr GETIN
         sta readv
-;        sta $d020
+        sta $d020
         bit .flags
         bpl .noprint
 

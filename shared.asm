@@ -16,6 +16,8 @@ strdst=$fd
 !src "std/print.asm"
 !src "std/string.asm"
 !src "std/checkpause.asm"
+!src "std/prng.asm"
+!src "std/init_data.asm"
 
 ; ui
 !src "core/menu.asm"

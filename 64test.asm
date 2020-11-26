@@ -2,6 +2,8 @@
 !src "cbm/zeropage64.asm"
 
 workptr = strpooltmpptr                    ; needed by string/print libraries
+savebase = end+1
+maxpage = $d0 ; actually max page - 1
 
 *=$0801
 

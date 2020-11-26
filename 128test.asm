@@ -3,6 +3,10 @@
 
 *= $1c01
 
+savebase = $0400
+maxpage  = $ff ; max page + 1
+loadbank = 1   ; bank for test data
+
 c128
 
 !to "testsuite128.prg", cbm

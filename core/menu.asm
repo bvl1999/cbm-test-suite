@@ -21,6 +21,8 @@ devid_ypos
 !byte 0
 
 main_menu
+    lda #2
+    sta pause
     lda #6
     sta $d020
     lda #0
