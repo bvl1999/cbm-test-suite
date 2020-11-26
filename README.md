@@ -30,4 +30,13 @@ To build:
 
 'acme 128test.asm' builds the c128 version
 
-That should do it for now
+License:
+
+This software is copyright 2020 by Bart van Leeuwen and comes with a simple 2 clause BSD style
+license:
+
+- use this for whatever purpose you like
+
+- do not claim to have written this
+
+Enjoy your storage stress testing!
