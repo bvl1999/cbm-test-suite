@@ -11,7 +11,7 @@ maxpages=$fa
 
 } else {
 
-savebase=$1400
+savebase=end+1
 maxpages=$bb
 
 }
