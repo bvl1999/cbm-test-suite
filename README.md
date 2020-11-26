@@ -20,7 +20,11 @@ tens to hundreds of thousands of file creation, write and delete actions.
 
 The tests can easily be extended and/or modified.
 
-Everything using acme syntax.
+Everything using acme assembler syntax and you will need an installed version of acme to build
+
+https://sourceforge.net/projects/acme-crossass/
+
+To build:
 
 'acme 64test.asm' builds the 64 version
 
