@@ -19,7 +19,6 @@ devid
     sta $d011
 +
 }
-    jsr init_data
     jmp main_menu
 
 

@@ -11,8 +11,8 @@ init_data
         sta strsrc+1
         sta $fe
 
-        ldy #0
--       jsr prng
+-       ldy #0
+        jsr prng
 !ifdef c128 {
         ldx #loadbank
         jsr INDSTA
@@ -20,8 +20,7 @@ init_data
         sta (strsrc),y
 }
         sta $d020
-;        inc strsrc
-        iny
+        inc strsrc
         bne -
         inc strsrc+1
         lda strsrc+1

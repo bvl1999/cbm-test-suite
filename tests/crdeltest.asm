@@ -1,8 +1,4 @@
-loopcount
-        !word 0
-
 file_create_test
-
 !zone file_create_test {
         sei
         lda #$00   ; disable kernal messages

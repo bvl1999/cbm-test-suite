@@ -11,6 +11,10 @@ strdst=$fd
 ; startup code first.. should be at a specific location.
 !src "core/startup.asm"
 
+; data, we want this close to the start
+
+!src "core/data.asm"
+
 ; anything else, order shouldn't matter
 ; some lib stuff
 !src "std/print.asm"

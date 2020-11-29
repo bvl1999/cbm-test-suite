@@ -6,11 +6,17 @@ extra_display=$40
 file_size_test
 !zone file_size_test {
         sei
+        bit runflags
+        bmi +
+        jsr init_data
+        lda runflags
+        ora #$80
+        sta runflags
++
         lda #147
         jsr CHROUT
         lda #$ff   ; enable kernal messages
         sta $9d
-
         ldx #<startsize
         stx file_len
         ldx #>startsize
@@ -63,7 +69,7 @@ do_save_file
         lda #147
         jsr CHROUT
         lda #0
-        sta .flags
+        sta result
         sta bytes_read
         sta bytes_read+1
 
@@ -205,7 +211,7 @@ do_test_read
         jsr GETIN
         sta readv
         sta $d020
-        bit .flags
+        bit result
         bpl .noprint
 
         lda extra
@@ -255,9 +261,9 @@ do_test_read
         lda kworkptr1
         cmp kworkptr2
         bne .nocheck
-        lda .flags
+        lda result
         ora #$80
-        sta .flags
+        sta result
 .nocheck
         inc bytes_read
         beq .count_ok
@@ -269,6 +275,8 @@ do_test_read
         jmp .restart_read
 
 .read_end
+        lda #0
+        sta $d020
         jsr CLRCHN
         lda #1
         jsr CLOSE
@@ -439,27 +447,9 @@ do_test_read
 !byte 8,5,14
 !tx "testing length: "
 !byte 0
-
-.flags
-!byte 0
-
-
-
-file_len
-!word $0001
-bytes_read
-!word 0
 .scratchfile
 !tx "s:"
 .testfile
 !tx "ctx,r,p"
 !byte 0,0,0,0
-xpos
-!byte 0
-ypos
-!byte 0
-extra
-!byte $40
-readv
-!byte 0
 }
