@@ -29,5 +29,3 @@ strdst=$fd
 ; our tests
 !src "tests/eoftest.asm"
 !src "tests/crdeltest.asm"
-!src "tests/crdeltestseq.asm"
-!src "tests/scratchtest.asm"

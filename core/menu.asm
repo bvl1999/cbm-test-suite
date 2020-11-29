@@ -1,7 +1,7 @@
 
 ; main menu
 
-.numkeys=5
+.numkeys=3
 max_dev=30
 min_dev=8
 
@@ -100,19 +100,12 @@ main_menu
     jmp main_menu
 
 .option_3
-    cmp #3
-    bne .option_4
-    jsr file_create_test_seq
-    jsr check_pause
-    jmp main_menu
-
 .option_4
-    cmp #4
-    bne .endkeyscan
-    jsr file_scratch_test
-    jsr check_pause
-    jmp main_menu
-
+.option_5
+.option_6
+.option_7
+.option_8
+.option_9
 .endkeyscan
     jmp main_menu
 
