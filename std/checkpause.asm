@@ -1,3 +1,8 @@
+; wait.. how long depends on value of 'pause'
+; 0: wait briefly
+; 1: wait longer
+; 2: wait till space bar pressed
+
 check_pause
         lda pause
         bne +

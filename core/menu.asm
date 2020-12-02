@@ -197,10 +197,6 @@ main_menu
 !byte $0d,$0d
 !tx "2. test read files with increasing size"
 !byte $0d,$0d
-!tx "3. file create/seq-write/delete test"
-!byte $0d,$0d
-!tx "4. repeated (pointless) scratch test"
-!byte $0d,$0d
 !tx "0. quit"
 !byte $0d,$0d
 !byte $05

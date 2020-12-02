@@ -1,3 +1,5 @@
+; c128 version
+
 !src "cbm/kernal128.asm"
 !src "cbm/zeropage128.asm"
 

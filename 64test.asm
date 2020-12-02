@@ -1,3 +1,5 @@
+; c64 version
+
 !src "cbm/kernal64.asm"
 !src "cbm/zeropage64.asm"
 

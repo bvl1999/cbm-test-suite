@@ -13,7 +13,7 @@ K_ERROR9 = $f694
 K_ERROR16 = $f697
 
 
-; C128 kernal jumptable 
+; official C128 kernal jumptable 
 
 SETBNK    = $ff68
 GETCFG    = $ff6b
