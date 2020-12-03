@@ -86,33 +86,20 @@ do_save_file
         jsr SETBNK
 }
 
-        lda #$05
-        ldx #<.scratchfile
-        ldy #>.scratchfile
-        jsr SETNAM
-        lda #$0f
-        ldx devid
-        ldy #$0f
-        jsr SETLFS
-        jsr OPEN
-        bcc +
-        jmp .ropen_error
-+
-        ldx #$0f
-        jsr CHKIN 
+        lda #3
+        ldx #<.testfile
+        ldy #>.testfile
+        jsr scratch_file
+        ldy #0
 -
-        lda iecstatus
-        bne +
-        jsr GETIN
+        lda cmdbuf,y
+        beq +
         jsr CHROUT
-        jmp -
-+
-        jsr CLRCHN
-        lda #$0f
-        tax
-        tay
-        jsr CLOSE
-
+        iny
+        bne -
++       
+;       lda #$0d
+;       jsr CHROUT
 !ifdef c128 {
         lda #loadbank
         ldx #0
@@ -164,7 +151,6 @@ do_save_file
         jsr PLOT
         stx xpos
         sty ypos
-;        jsr CLALL
         clc
         rts
 
@@ -177,15 +163,15 @@ do_test_read
         ldx #0
         jsr SETBNK
 }
-        lda #7
-        ldx #<.testfile
-        ldy #>.testfile
-        jsr SETNAM
+
         lda #1
         ldx devid
         ldy #4
         jsr SETLFS
-        jsr OPEN
+        lda #3
+        ldx #<.testfile
+        ldy #>.testfile
+        jsr openprgr
         bcc .ropen_ok
         jmp .ropen_error
 .ropen_ok
@@ -447,9 +433,5 @@ do_test_read
 !byte 8,5,14
 !tx "testing length: "
 !byte 0
-.scratchfile
-!tx "s:"
-.testfile
-!tx "ctx,r,p"
-!byte 0,0,0,0
+.testfile = testfile
 }

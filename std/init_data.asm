@@ -31,5 +31,5 @@ init_data
 
 .init_message
 !byte 147
-!tx "initializing data..."
+!tx "generating test data..."
 !byte 0

@@ -1,24 +1,15 @@
-
 ; main menu
 
-.numkeys=3
-max_dev=30
-min_dev=8
+.numkeys=3                         ; number of keys, note 1st key is always 0, so this should be 1 higher than the number of menu items in actual use. 
+max_dev=30                         ; highest allowed device id
+min_dev=8                          ; lowest allowed device id
 
+; nokey is different for c128 and c64 
 !ifdef c128 {
     nokey = 88
-    fgcol = $91
 } else {
     nokey = 64
-    fgcol = $0286
 }
-
-pause
-!byte 0
-devid_xpos
-!byte 0
-devid_ypos
-!byte 0
 
 main_menu
     lda #2
@@ -28,7 +19,7 @@ main_menu
     lda #0
     sta $d021
     +Print .headertext
-    sec
+    sec                            ; set carry to make .prind_devid register its screen coordinates
     jsr .print_devid
     lda #$9b
     jsr CHROUT
@@ -130,6 +121,7 @@ main_menu
 +   
     rts
 
+; print the current device id, if carry set, register display coordinates, if carry clear, print at the registered coordinates.
 .print_devid
     bcc .print_devid_at
     jsr PLOT

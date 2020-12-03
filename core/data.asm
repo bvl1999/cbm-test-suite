@@ -16,3 +16,12 @@ loopcount
 !word 0
 result
 !byte 0
+testfile
+!tx "ctx"
+!byte 0
+pause
+!byte 0
+devid_xpos
+!byte 0
+devid_ypos
+!byte 0

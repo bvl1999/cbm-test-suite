@@ -1,4 +1,3 @@
-cmdbuf=$0200
 scratch_file
         stx strsrc
         sty strsrc+1

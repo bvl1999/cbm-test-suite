@@ -38,44 +38,16 @@ file_create_test
 
 
 .do_save_file
-;        lda #extra_display
-;        sta extra
-;        lda #147
-;        jsr CHROUT
 
 !ifdef c128 {
         lda #loadbank
         ldx #0
         jsr SETBNK
 }
-
-        lda #$05
-        ldx #<.scratchfile
-        ldy #>.scratchfile
-        jsr SETNAM
-        lda #$0f
-        ldx devid
-        ldy #$0f
-        jsr SETLFS
-        jsr OPEN
-        bcc ++
-        jmp .ropen_error
-+
-        ldx #$0f
-        jsr CHKIN 
--
-        lda iecstatus
-        bne +
-        jsr GETIN
-        jsr CHROUT
-        jmp -
-+
-        jsr CLRCHN
-++
-        lda #$0f
-        tax
-        tay
-        jsr CLOSE
+        lda #$03
+        ldx #<.testfile
+        ldy #>.testfile
+        jsr scratch_file
 
 !ifdef c128 {
         lda #loadbank
@@ -161,10 +133,5 @@ file_create_test
 !byte 150
 !tx "error opening file: "
 !byte 0
-.scratchfile
-!tx "s:"
-.testfile
-!tx "ctx,r,p"
-!byte 0,0,0,0
-
+.testfile = testfile
 }

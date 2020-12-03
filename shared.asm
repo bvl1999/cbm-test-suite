@@ -1,7 +1,8 @@
 ; testsuite 64/128
 ; by Bart van Leeuwen, 2020
 ;
-; 
+
+
 !cpu 6510
 !initmem $00
 
@@ -26,6 +27,7 @@ cmdbuf=$0200                             ; disk cmds, abuse basic parsing buffer
 !src "std/init_data.asm"                 ; fill free ram with junk for sequential read verification
 !src "std/sendcmd.asm"                   ; send a dos command to the device in devid, uses file#15
 !src "std/scratchfile.asm"               ; scratch file pointed at by x/y (low/high) and a (length)
+!src "std/open.asm"                      ; open various types of disk files, expects SETLFS being called beforehand (and make sure to also call SETBNK on C128)
 
 ; below is where you should add your own tests
 !src "core/menu.asm"                     ; menu 'system'
