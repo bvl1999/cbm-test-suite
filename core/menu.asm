@@ -177,9 +177,9 @@ main_menu
 
 .headertext
 !byte 8,14, 147, $9e ; cls, yellow
-!tx "CBM storage test suite v0.01 alpha"
+!tx "CBM storage test suite v1.0"
 !byte $0d,05,$0d
-!tx "By Bart van Leeuwen in 2020"
+!tx "By Bart van Leeuwen"
 !byte $0d,$9b,$0d ; grey
 !tx "device id (+/- to change): "
 !byte $9e, 0 ; yellow
