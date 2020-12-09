@@ -24,11 +24,23 @@ Everything using acme assembler syntax and you will need an installed version of
 
 https://sourceforge.net/projects/acme-crossass/
 
+Also, you'll want to have gnu make installed.
+
 To build:
 
-'acme 64test.asm' builds the 64 version
+'make'
 
-'acme 128test.asm' builds the c128 version
+or
+
+'make archive'
+
+Output will be in the target subdirectory.
+
+If you do not have gnu make...
+
+'acme -f cbm -o target/testsuite64.prg --cpu 6502 systems/64test.asm'
+'acme -f cbm -o target/testsuite128.prg --cpu 6502 systems/128test.asm'
+
 
 License:
 

@@ -2,10 +2,6 @@
 ; by Bart van Leeuwen, 2020
 ;
 
-
-!cpu 6510
-!initmem $00
-
 tmpval=$fa                               ; used by string and print libraries
 strsrc=$fb                               ; used by string/print libraries and various file related functions
 strdst=$fd                               ; same same.

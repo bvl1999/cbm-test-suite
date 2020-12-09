@@ -9,8 +9,6 @@ maxpage = $d0 ; actually max page - 1
 
 *=$0801
 
-!to "testsuite64.prg", cbm
-
 scratchpad=$0334                            ; for string/print libraries
 
 !byte <end,>end,$01,$00,$9e               ; Line 1 SYS2062
@@ -20,5 +18,5 @@ scratchpad=$0334                            ; for string/print libraries
 
 *=$080d
 
-!src "shared.asm"
+!src "core/shared.asm"
 end
