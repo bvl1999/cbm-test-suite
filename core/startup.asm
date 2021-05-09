@@ -18,6 +18,9 @@ devid
     and #%01101111
     sta $d011
 +
+} else {
+    lda #$36
+    sta $01
 }
     jmp main_menu
 
@@ -28,6 +31,9 @@ do_exit
     sta $d030
     pla
     sta $d011
+} else {
+    lda #$37
+    sta $01
 }
     rts
 
