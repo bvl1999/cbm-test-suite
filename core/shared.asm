@@ -5,7 +5,11 @@
 tmpval=$fa                               ; used by string and print libraries
 strsrc=$fb                               ; used by string/print libraries and various file related functions
 strdst=$fd                               ; same same.
+!ifdef c128 {
 cmdbuf=$0200                             ; disk cmds, abuse basic parsing buffer
+} else {
+cmdbuf=$033c                             ; or on c64, abuse tape buffer
+}
 
 !src <6502/std.a>                        ; provided by acme, make sure to point your ACME install at the acme lib files.
 
@@ -24,6 +28,7 @@ cmdbuf=$0200                             ; disk cmds, abuse basic parsing buffer
 !src "std/sendcmd.asm"                   ; send a dos command to the device in devid, uses file#15
 !src "std/scratchfile.asm"               ; scratch file pointed at by x/y (low/high) and a (length)
 !src "std/open.asm"                      ; open various types of disk files, expects SETLFS being called beforehand (and make sure to also call SETBNK on C128)
+!src "std/dumpftab.asm"                      ; dump file table
 
 ; below is where you should add your own tests
 !src "core/menu.asm"                     ; menu 'system'

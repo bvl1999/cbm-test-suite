@@ -371,6 +371,7 @@ do_test_read
         jsr printint
         lda #$0d
         jsr CHROUT
+        jsr dumpftab
         sec
         rts
 
@@ -381,6 +382,7 @@ do_test_read
         jsr printint
         lda #$0d
         jsr CHROUT
+        jsr dumpftab
         sec
         rts
 

@@ -1,6 +1,8 @@
 file_create_test
 !zone file_create_test {
         sei
+        lda #1
+        sta pause
         lda #$00   ; disable kernal messages
         sta $9d
         lda #0
@@ -31,8 +33,6 @@ file_create_test
         bne .test_loop
 
 .loop_end
-        lda #1
-        sta pause
         cli
         rts
 
@@ -109,6 +109,8 @@ file_create_test
         jsr printint
         lda #$0d
         jsr CHROUT
+
+        jsr dumpftab
         lda #2
         sta pause
         sec
