@@ -22,6 +22,8 @@ devid
     lda #$36
     sta $01
 }
+    lda dv
+    sta devid
     jmp main_menu
 
 
